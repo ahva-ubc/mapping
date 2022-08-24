@@ -1,0 +1,11 @@
+/*
+ Image Map Resizer
+  Desc: Resize HTML imageMap to scaled image.
+  Copyright: (c) 2014-15 David J. Bradshaw - dave@bradshaw.net
+  https://github.com/davidjbradshaw/image-map-resizer
+  License: MIT
+*/
+(function(){function e(){function c(){var b={width:a.width/a.naturalWidth,height:a.height/a.naturalHeight},c={width:parseInt(window.getComputedStyle(a,null).getPropertyValue("padding-left"),10),height:parseInt(window.getComputedStyle(a,null).getPropertyValue("padding-top"),10)};d.forEach(function(a,d){var f=0;e[d].coords=a.split(",").map(function(a){var e=1===(f=1-f)?"width":"height";return c[e]+Math.floor(Number(a)*b[e])}).join(",")})}function f(a){return a.coords.replace(/ *, */g,",").replace(/ +/g,
+",")}function b(){clearTimeout(g);g=setTimeout(c,250)}var e=null,d=null,a=null,g=null;"function"!==typeof this._resize?(e=this.getElementsByTagName("area"),d=Array.prototype.map.call(e,f),a=document.querySelector('img[usemap\x3d"#'+this.name+'"]')||document.querySelector('img[usemap\x3d"'+this.name+'"]'),this._resize=c,a.addEventListener("load",c,!1),window.addEventListener("focus",c,!1),window.addEventListener("resize",b,!1),window.addEventListener("readystatechange",c,!1),document.addEventListener("fullscreenchange",
+c,!1),a.width===a.naturalWidth&&a.height===a.naturalHeight||c()):this._resize()}function d(){function c(b){if(b){if(!b.tagName)throw new TypeError("Object is not a valid DOM element");if("MAP"!==b.tagName.toUpperCase())throw new TypeError("Expected \x3cMAP\x3e tag, found \x3c"+b.tagName+"\x3e.");e.call(b);d.push(b)}}var d;return function(b){d=[];switch(typeof b){case "undefined":case "string":Array.prototype.forEach.call(document.querySelectorAll(b||"map"),c);break;case "object":c(b);break;default:throw new TypeError("Unexpected data type ("+
+typeof b+").");}return d}}"function"===typeof define&&define.amd?define([],d):"object"===typeof module&&"object"===typeof module.exports?module.exports=d():window.imageMapResize=d();"jQuery"in window&&(window.jQuery.fn.imageMapResize=function(){return this.filter("map").each(e).end()})})();window.addEventListener("load",function(){var e=$("map");0<$("map").length&&e.each(function(){$(this).imageMapResize()})});
